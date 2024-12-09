@@ -5,7 +5,7 @@ class MockStorageHandler:
     def read_file(self, file_path):
         content = self.files.get(file_path, None)
         if content is None:
-            print(f"File {file_path} does not exist. Creating a new file.")
+            #print(f"File {file_path} does not exist. Creating a new file.")
             self.files[file_path] = []
             return []
         else:

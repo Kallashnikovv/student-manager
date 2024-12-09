@@ -1,10 +1,20 @@
-def import_students(storage_handler, file_path):
-    students = storage_handler.read_file(file_path)
-    return students
+from src.exceptions import StudentExistsError
 
-def add_student(storage_handler, file_path, student_name):
-    students = storage_handler.read_file(file_path)
-    if student_name not in students:
-        storage_handler.append_to_file(file_path, student_name)
-    else:
-        print(f"Student {student_name} already exists in the list.")
+class StudentManager:
+    def __init__(self):
+        pass
+    
+    def import_students(self, storage_handler, file_path):
+        students = storage_handler.read_file(file_path)
+        return students
+
+    def add_student(self, storage_handler, file_path, student_name):
+        try:
+            students = storage_handler.read_file(file_path)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"File '{file_path}' does not exist.")
+        if student_name not in students:
+            storage_handler.append_to_file(file_path, student_name)
+        else:
+            raise StudentExistsError(f"Student {student_name} already exists in the list.")
+            

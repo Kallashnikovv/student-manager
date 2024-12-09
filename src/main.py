@@ -1,28 +1,37 @@
-from student_manager import import_students, add_student
-from attendance_manager import manage_attendance, mark_attendance, export_attendance
-import storage_handler
+from src.student_manager import StudentManager
+from src.attendance_manager import AttendanceManager
+from src.storage_handler import StorageHandler
 
 def main():
+    s_manager = StudentManager()
+    a_manager = AttendanceManager()
+    storage_handler = StorageHandler()
+    
     students_file = 'students.txt'
     attendance_file = 'attendance.txt'
 
-    students = import_students(storage_handler, students_file)
+    students = s_manager.import_students(storage_handler, students_file)
     print("Lista studentów:", students)
 
-    add_student(storage_handler, students_file, 'Jan Kowalski')
-    add_student(storage_handler, students_file, 'Julia Nowak')
-    add_student(storage_handler, students_file, 'Robert Lewandowski')
-    add_student(storage_handler, students_file, 'Szymon Piotrowski')
+    s_manager.add_student(storage_handler, students_file, 'Jan Kowalski')
+    s_manager.add_student(storage_handler, students_file, 'Julia Nowak')
+    s_manager.add_student(storage_handler, students_file, 'Robert Lewandowski')
+    s_manager.add_student(storage_handler, students_file, 'Szymon Piotrowski')
     
-    students = import_students(storage_handler, students_file)
+    students = s_manager.import_students(storage_handler, students_file)
     
     print("Lista studentów:", students)
 
-    attendance = manage_attendance()
+    attendance = a_manager.manage_attendance()
     for student in students:
-        mark_attendance(attendance, student, True)
+        a_manager.mark_attendance(attendance, student, True)
 
-    export_attendance(storage_handler, attendance_file, attendance)
+    a_manager.export_attendance(storage_handler, attendance_file, attendance)
     print("Lista obecności:", attendance)
+    
+    # Cleanup
+    import os
+    os.remove(students_file)
+    os.remove(attendance_file)
 
 # main()
