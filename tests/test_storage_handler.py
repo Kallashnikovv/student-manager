@@ -1,5 +1,3 @@
-import pytest
-
 from src.storage_handler import StorageHandler
 
 # setup_method - Used to initialize common objects before each test method

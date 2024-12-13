@@ -1,4 +1,3 @@
-import pytest
 from src.attendance_manager import AttendanceManager
 from tests.mock_storage_handler import MockStorageHandler
 
