@@ -1,1 +1,1 @@
-# spec-unit-tests
+# student-manager
